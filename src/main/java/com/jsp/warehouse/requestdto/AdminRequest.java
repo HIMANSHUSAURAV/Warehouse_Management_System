@@ -21,4 +21,5 @@ public class AdminRequest {
 //	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
 //	message = "The Password cannot be accepted")
 	private String password;
+	
 }

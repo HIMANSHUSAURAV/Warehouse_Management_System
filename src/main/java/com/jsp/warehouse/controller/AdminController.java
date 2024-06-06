@@ -13,12 +13,12 @@ import com.jsp.warehouse.service.AdminService;
 import com.jsp.warehouse.utility.ResponseStructure;
 
 @RestController
-@RequestMapping("/api/version1")
+//@RequestMapping("/api/version1")
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	@PostMapping("/superAdmin")
+	@PostMapping("/register")
 	public ResponseEntity<ResponseStructure<AdminResponse>> saveAdmin(@RequestBody AdminRequest adminRequest){
 		return adminService.saveAdmin(adminRequest);
 	}
