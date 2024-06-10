@@ -1,13 +1,13 @@
 package com.jsp.warehouse.exception;
 
-public class WarehouseNotFoundByIdException extends RuntimeException{
+import lombok.AllArgsConstructor;
 
-	public WarehouseNotFoundByIdException(String message) {
-        super(message);
-    }
+@AllArgsConstructor
+public class WarehouseNotFoundByIdException extends RuntimeException{
+	private String message;
 	
 	@Override
 	public String getMessage() {
-		return this.getMessage();
+		return this.message;
 	}
 }

@@ -20,14 +20,14 @@ public class UserDetailImpl implements UserDetails {
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		admin.getAdminType()
+		 return admin.getAdminType()
 		.getPrivileges().stream()
 		.map(privilege -> 
 		new SimpleGrantedAuthority(
 				privilege.name()))
 		.toList();
 		
-		return null;
+		
 	}
 
 	@Override
