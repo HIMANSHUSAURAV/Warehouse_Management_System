@@ -65,6 +65,6 @@ public class UserDetailImpl implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
-
 }
+
+

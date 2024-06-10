@@ -22,7 +22,7 @@ public class WarehouseController {
 
 	@GetMapping("/warehouses")
 	public String saveWarehouse() {
-	
-	return " warehouse found";
-}
+
+		return " warehouse found";
+	}
 }
