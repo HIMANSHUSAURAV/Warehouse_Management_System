@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,4 +34,15 @@ public class WarehouseController {
 	public ResponseEntity<ResponseStructure<WarehouseResponse>> createWarehouse(@RequestBody WarehouseRequest warehouseRequest) {
 		return warehouseService.createWarehouse(warehouseRequest);
 	}
+	 
+	    @PreAuthorize("hasAuthority('UPDATE_WAREHOUSE')")
+		@PutMapping("/warehouses/{warehouseId}")
+		public ResponseEntity<ResponseStructure<WarehouseResponse>> updateWarehouse(@RequestBody WarehouseRequest warehouseRequest, @PathVariable int warehouseId) {
+			return warehouseService.updateWarehouse(warehouseRequest, warehouseId);
+		}
+	    @GetMapping("/warehouses/{warehouseId}")
+		public ResponseEntity<ResponseStructure<WarehouseResponse>> findWarehouse(@PathVariable int warehouseId){
+			
+			 return warehouseService.findWarehouse( warehouseId);
+		}
 }
