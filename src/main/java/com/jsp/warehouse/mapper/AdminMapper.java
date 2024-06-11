@@ -21,6 +21,7 @@ public class AdminMapper {
 				.password(passwordEncoder.encode(adminRequest.getPassword()))
 				.build();
 	}
+	
 	public AdminResponse mapToAdminResponse(Admin admin) {
 		return AdminResponse.builder()
 				.adminId(admin.getAdminId())
