@@ -16,14 +16,14 @@ public class WarehouseMapper {
 	private PasswordEncoder passwordEncoder;
 
 	public Warehouse mapToWarehouse(WarehouseRequest warehouseRequest, Warehouse warehouse) {
-		warehouse.setWarehousename(warehouseRequest.getName());
+		warehouse.setWarehousename(warehouseRequest.getWarehousename());
 		return warehouse;
 	}
 
 	public WarehouseResponse mapToWarehouseResponse(Warehouse warehouse) {
 		return WarehouseResponse.builder()
 				.warehouseId(warehouse.getWarehouseId())
-				.name(warehouse.getWarehousename())
+				.warehousename(warehouse.getWarehousename())
 				.totalCapacity(0)
 				.build();
 	}

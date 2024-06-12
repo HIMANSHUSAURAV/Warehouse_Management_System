@@ -40,9 +40,13 @@ public class WarehouseController {
 		public ResponseEntity<ResponseStructure<WarehouseResponse>> updateWarehouse(@RequestBody WarehouseRequest warehouseRequest, @PathVariable int warehouseId) {
 			return warehouseService.updateWarehouse(warehouseRequest, warehouseId);
 		}
+	    
 	    @GetMapping("/warehouses/{warehouseId}")
 		public ResponseEntity<ResponseStructure<WarehouseResponse>> findWarehouse(@PathVariable int warehouseId){
 			
-			 return warehouseService.findWarehouse( warehouseId);
+			 return warehouseService.findWarehouse(warehouseId);
 		}
 }
+
+
+

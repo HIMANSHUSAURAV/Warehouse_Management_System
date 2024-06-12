@@ -17,11 +17,17 @@ import jakarta.validation.Valid;
 public interface AdminService {
 
 	ResponseEntity<ResponseStructure<AdminResponse>> saveAdmin(AdminRequest adminRequest);
+	
 	ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@RequestBody AdminRequest adminRequest, int warehouseId);
+	
 	ResponseEntity<ResponseStructure<AdminResponse>> updateAdmin( AdminRequest adminRequest, int adminId);
+	
 	ResponseEntity<ResponseStructure<AdminResponse>> updateSuperByAdmin(@Valid AdminRequest adminRequest, int adminId);
-	ResponseEntity<ResponseStructure<AdminResponse>> findAdminById(int adminById);
+	
+	ResponseEntity<ResponseStructure<AdminResponse>> findAdmin(int adminById);
+	
 	ResponseEntity<ResponseStructure<List<AdminResponse>>> findAllAdmins();
+	
 
 
 

@@ -10,6 +10,6 @@ import lombok.Setter;
 public class WarehouseRequest {
 
   @NotNull (message = "admin name should not null")
-  @NotBlank(message = "dmin name could not blank")
-	private String name;                                    
+  @NotBlank(message = "admin name could not blank")
+	private String warehousename;                                    
 }

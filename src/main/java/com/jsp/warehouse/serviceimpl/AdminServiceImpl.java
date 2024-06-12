@@ -115,7 +115,7 @@ public class AdminServiceImpl implements  AdminService{
 	}
 
 	@Override
-	public ResponseEntity<ResponseStructure<AdminResponse>> findAdminById(int adminById) {
+	public ResponseEntity<ResponseStructure<AdminResponse>> findAdmin(int adminById) {
 
 		return adminRepo.findById(adminById).map(admin -> ResponseEntity
 				.status(HttpStatus.FOUND)

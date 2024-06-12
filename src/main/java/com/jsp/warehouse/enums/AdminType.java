@@ -4,7 +4,7 @@ import java.util.List;
 
 public enum AdminType {
 
-	SUPER_ADMIN(List.of(Privilege.CREATE_ADMIN,
+	SUPER_ADMIN(List.of(Privilege.CREATE_ADMIN,Privilege.CREATE_ADDRESS,
 			Privilege.CREATE_WAREHOUSE,Privilege.UPDATE_WAREHOUSE)),
 
 	Admin(List.of(Privilege.CREATE_STORAGE,

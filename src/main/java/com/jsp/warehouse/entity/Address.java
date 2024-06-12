@@ -1,16 +1,11 @@
 package com.jsp.warehouse.entity;
 
-import java.util.List;
-
-import com.jsp.warehouse.enums.AdminType;
-import com.jsp.warehouse.enums.Privilege;
-
+import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,18 +15,25 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Admin {
+@NoArgsConstructor
+public class Address {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int adminId;
-	private String adminName;
-	private String adminEmail;
-	private String password;
+	private int addressId;
+	private String addressLine;
+	private String city;
+	private String state;
+	private String country;
+	private int pincode;
+	private String  longitutde; 
+	private String latitude;
 	
-	@Enumerated(EnumType.STRING)
-	private AdminType adminType;
-	
+	@OneToOne
+	private Warehouse warehouse;
 }
+
+
+
+

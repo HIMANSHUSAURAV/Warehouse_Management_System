@@ -27,7 +27,7 @@ public class WarehouseServiceImpl implements WarehouseService{
 	@Autowired
 	private WarehouseMapper warehouseMapper;
 
-	@PostMapping("/warehouses")
+	@Override
 	public ResponseEntity<ResponseStructure<WarehouseResponse>> createWarehouse(WarehouseRequest warehouseRequest) {
 
 		Warehouse warehouse= warehouseMapper.mapToWarehouse(warehouseRequest,  new Warehouse()); 
@@ -70,7 +70,7 @@ public class WarehouseServiceImpl implements WarehouseService{
 				}).orElseThrow(()-> new WarehouseNotFoundByIdException("Warehouse not found by Id"));
 	}
 
-	
+
 }
 
 
