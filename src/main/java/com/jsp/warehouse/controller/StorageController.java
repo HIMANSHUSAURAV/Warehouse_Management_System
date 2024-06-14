@@ -27,8 +27,6 @@ public class StorageController {
 	@Autowired
 	private StorageService storageService;
 	
-	
-
 	@PreAuthorize("hasAuthority('CREATE_STORAGE')")
 	@PostMapping("warehouses/{wareHouseId}/storages")
 	public ResponseEntity<SimpleStructure<String>> createStorage(@RequestBody  StorageRequest storageRequest ,
