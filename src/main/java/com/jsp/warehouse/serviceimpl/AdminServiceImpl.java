@@ -2,8 +2,6 @@ package com.jsp.warehouse.serviceimpl;
 
 import java.util.List;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.jsp.warehouse.entity.Admin;
-import com.jsp.warehouse.entity.Warehouse;
 import com.jsp.warehouse.enums.AdminType;
-import com.jsp.warehouse.enums.Privilege;
 import com.jsp.warehouse.exception.AdminNotFoundByEmailException;
 import com.jsp.warehouse.exception.AdminNotFoundByIdException;
 import com.jsp.warehouse.exception.IllegalOperationException;
@@ -22,7 +18,6 @@ import com.jsp.warehouse.mapper.AdminMapper;
 import com.jsp.warehouse.repo.AdminRepo;
 import com.jsp.warehouse.repo.WarehouseRepo;
 import com.jsp.warehouse.requestdto.AdminRequest;
-import com.jsp.warehouse.requestdto.WarehouseRequest;
 import com.jsp.warehouse.responsedto.AdminResponse;
 import com.jsp.warehouse.service.AdminService;
 import com.jsp.warehouse.utility.ResponseStructure;
@@ -64,7 +59,7 @@ public class AdminServiceImpl implements  AdminService{
 		return warehouseRepo.findById(warehouseId).map(warehouse-> {
 
 			Admin   admin = adminMapper.mapToAdmin(adminRequest, new Admin()); 
-			admin.setAdminType(AdminType.Admin); 
+			admin.setAdminType(AdminType.ADMIN); 
 			admin=adminRepo.save(admin); 
 
 			warehouse.setAdmin(admin);
@@ -129,7 +124,7 @@ public class AdminServiceImpl implements  AdminService{
 
 	@Override
 	public ResponseEntity<ResponseStructure<List<AdminResponse>>> findAllAdmins() {
-		List<AdminResponse> adminsList = adminRepo.findAll().stream().map(admin -> 
+		List<AdminResponse> adminsList = adminRepo.findAllByAdminType(AdminType.ADMIN).stream().map(admin -> 
 		adminMapper.mapToAdminResponse(admin)).toList();
 
 		return ResponseEntity.status(HttpStatus.FOUND)

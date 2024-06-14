@@ -55,14 +55,13 @@ public class AddressServiceImple implements AddressService {
 	public ResponseEntity<ResponseStructure<AddressResponse>> updateAddress(int addressId,
 			AddressRequest addressRequest){
 
-
 		return addressRepository.findById(addressId).map(exaddress ->{
 			addressMapper.mapToAddress(addressRequest, exaddress);
 			exaddress = addressRepository.save(exaddress);
 			return  ResponseEntity.status(HttpStatus.CREATED)
 					.body(new ResponseStructure<AddressResponse>()
 							.setStatus(HttpStatus.CREATED.value())
-							.setMessage("Address Created")
+							.setMessage("Address updated")
 							.setData(addressMapper.mapToAddressResponse(exaddress)));
 		}).orElseThrow(()-> new AddressNotFoundByIdException("Address not found by the given id"));
 

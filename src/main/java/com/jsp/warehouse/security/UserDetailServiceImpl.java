@@ -8,20 +8,19 @@ import org.springframework.stereotype.Service;
 
 import com.jsp.warehouse.repo.AdminRepo;
 
+
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private AdminRepo adminRepo;
-	
+	private AdminRepo adminRepository;
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-		return adminRepo.findByAdminEmail(username)
-				.map(UserDetailImpl::new)
-				.orElseThrow();
-				
-	
+		
+		return adminRepository.findByAdminEmail(username).map(UserDetailImpl::new)
+				.orElseThrow(() -> new UsernameNotFoundException("Invalid Credencial"));
 	}
+
 }
 

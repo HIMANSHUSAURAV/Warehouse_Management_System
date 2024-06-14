@@ -17,6 +17,7 @@ public class WarehouseMapper {
 
 	public Warehouse mapToWarehouse(WarehouseRequest warehouseRequest, Warehouse warehouse) {
 		warehouse.setWarehousename(warehouseRequest.getWarehousename());
+		
 		return warehouse;
 	}
 
@@ -24,7 +25,7 @@ public class WarehouseMapper {
 		return WarehouseResponse.builder()
 				.warehouseId(warehouse.getWarehouseId())
 				.warehousename(warehouse.getWarehousename())
-				.totalCapacity(0)
+				.totalCapacity(warehouse.getTotalCapacity())
 				.build();
 	}
 }

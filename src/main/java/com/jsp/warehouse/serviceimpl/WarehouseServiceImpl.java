@@ -1,19 +1,18 @@
 package com.jsp.warehouse.serviceimpl;
 
+import java.io.Closeable;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.jsp.warehouse.entity.Warehouse;
-import com.jsp.warehouse.exception.AdminNotFoundByEmailException;
-import com.jsp.warehouse.exception.IllegalOperationException;
 import com.jsp.warehouse.exception.WarehouseNotFoundByIdException;
 import com.jsp.warehouse.mapper.WarehouseMapper;
 import com.jsp.warehouse.repo.WarehouseRepo;
 import com.jsp.warehouse.requestdto.WarehouseRequest;
-import com.jsp.warehouse.responsedto.AdminResponse;
 import com.jsp.warehouse.responsedto.WarehouseResponse;
 import com.jsp.warehouse.service.WarehouseService;
 import com.jsp.warehouse.utility.ResponseStructure;
@@ -38,6 +37,7 @@ public class WarehouseServiceImpl implements WarehouseService{
 						.setStatus(HttpStatus.CREATED.value()) 
 						.setMessage("Warehouse created") 
 						.setData(warehouseMapper.mapToWarehouseResponse(warehouse)));		
+		
 	}
 
 	@Override
@@ -70,7 +70,20 @@ public class WarehouseServiceImpl implements WarehouseService{
 				}).orElseThrow(()-> new WarehouseNotFoundByIdException("Warehouse not found by Id"));
 	}
 
+	@Override
+	public ResponseEntity<ResponseStructure<List<WarehouseResponse>>> findWarehouses() {
 
+		List<WarehouseResponse> warehouseResponses = warehouseRepo.findAll()
+				.stream()
+				.map(warehouse -> this.warehouseMapper.mapToWarehouseResponse(warehouse))
+				.toList();
+
+		return ResponseEntity.status(HttpStatus.FOUND)
+				.body(new ResponseStructure<List<WarehouseResponse>>()
+						.setStatus(HttpStatus.FOUND.value())
+						.setMessage("warehouse found")
+						.setData(warehouseResponses));
+	}
 }
 
 

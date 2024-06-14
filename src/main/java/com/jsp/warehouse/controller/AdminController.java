@@ -29,7 +29,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
-	@PostMapping("/register")
+	@PostMapping("/register") //SuperAdmin
 	public ResponseEntity<ResponseStructure<AdminResponse>> saveAdmin(@RequestBody  @Valid AdminRequest adminRequest){
 		return adminService.saveAdmin(adminRequest);
 	}
@@ -58,6 +58,7 @@ public class AdminController {
 		return adminService.findAdmin( adminById);
 	}
 
+	
 	@GetMapping("/admins")
 	public ResponseEntity<ResponseStructure<List<AdminResponse>>> findAllAdmins(){
 

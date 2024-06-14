@@ -11,5 +11,9 @@ public class WarehouseRequest {
 
   @NotNull (message = "admin name should not null")
   @NotBlank(message = "admin name could not blank")
-	private String warehousename;                                    
+	private String warehousename;
+  
+  private int totalCapacity;
+  
+ 
 }
