@@ -25,21 +25,22 @@ public class Storage {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private int storageId;
 	private String blockName;
 	private String section;
-	private double capacityInArea;
+	private double lengthInMeters;
+	private double breadthInMeters;
+	private double heightInMeters;
 	private double capacityInWeight;
 	
-	private double availableArea;
-	private double maxAdditionalWeight;
-	
 	@Enumerated(EnumType.STRING)
-	private List<MaterialTypes> materialTypes;
+	List<MaterialTypes> materialTypes;
 	
+	private double maxAdditionalWeight;
+	private double availableArea;
+
 	@ManyToOne
-	private Warehouse warehouse;
+	private Warehouse wareHouse;
 	
 }
 

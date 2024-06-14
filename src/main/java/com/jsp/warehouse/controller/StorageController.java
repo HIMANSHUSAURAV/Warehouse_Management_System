@@ -28,12 +28,12 @@ public class StorageController {
 	private StorageService storageService;
 	
 	
+
 	@PreAuthorize("hasAuthority('CREATE_STORAGE')")
-	@PostMapping("/warehouses/{warehouseId}/storages")
-    public ResponseEntity<SimpleStructure<String>> addStorage(@RequestBody @Valid StorageRequest storageRequest,      
-    		@RequestParam("no_of_storage_units") int noOfStorageUnits, @PathVariable int warehouseId){
-		
-		return storageService.addStorage(storageRequest,warehouseId, noOfStorageUnits);
+	@PostMapping("warehouses/{wareHouseId}/storages")
+	public ResponseEntity<SimpleStructure<String>> createStorage(@RequestBody  StorageRequest storageRequest ,
+			@PathVariable int wareHouseId, @RequestParam("no_of_storage_units") int noOfStorageUnits ){
+		return storageService.createStorage(storageRequest , wareHouseId , noOfStorageUnits);
 	}
 	
 	 @PutMapping("/storages/{storageId}")

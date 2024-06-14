@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jsp.warehouse.entity.Storage;
+import com.jsp.warehouse.entity.Warehouse;
 import com.jsp.warehouse.exception.AddressNotFoundByIdException;
 import com.jsp.warehouse.exception.StorageNotFoundByIdException;
 import com.jsp.warehouse.exception.WarehouseNotFoundByIdException;
@@ -18,6 +19,7 @@ import com.jsp.warehouse.repo.WarehouseRepo;
 import com.jsp.warehouse.requestdto.StorageRequest;
 import com.jsp.warehouse.responsedto.AddressResponse;
 import com.jsp.warehouse.responsedto.StorageResponse;
+import com.jsp.warehouse.responsedto.WarehouseResponse;
 import com.jsp.warehouse.service.StorageService;
 import com.jsp.warehouse.utility.ResponseStructure;
 import com.jsp.warehouse.utility.SimpleStructure;
@@ -38,58 +40,59 @@ public class StorageServiceImpl implements StorageService {
 
 
 	@Override
-	public ResponseEntity<SimpleStructure<String>> addStorage(@Valid StorageRequest storageRequest,
-			int warehouseId, int noOfStorageUnits) {
+	public ResponseEntity<SimpleStructure<String>> createStorage(StorageRequest storageRequest, int wareHouseId,
+			int noOfStorageUnits) {
+		Warehouse wareHouse =  warehouseRepo.findById(wareHouseId).orElseThrow(()-> new WarehouseNotFoundByIdException("warehouse not found"));
 
-		return warehouseRepo.findById(warehouseId).map(warehouse -> {
+		List<Storage> storages = new ArrayList<Storage>();
 
-			int noOfStorageUnits1 = noOfStorageUnits;
-			List<Storage> storages = new ArrayList<Storage>();
-			while(noOfStorageUnits1 > 0) {
+		int count = 0;
 
-				Storage storage = storageMapper.mapToStorage(storageRequest, new Storage());
+		while(noOfStorageUnits > 0) {
 
-				storages.add(storage);
+			Storage storage  = storageMapper.mapToStorage(storageRequest, new Storage());
 
-				storage.setMaxAdditionalWeight(storageRequest.getCapacityInKg());
+			storage.setMaxAdditionalWeight(storageRequest.getCapacityInWeight());
+			storage.setAvailableArea(storageRequest.getLengthInMeters() * storageRequest.getBreadthInMeters() * storageRequest.getHeightInMeters());
+			storage.setWareHouse(wareHouse);
 
-				storage.setAvailableArea(storage.getCapacityInArea());
-				storage.setWarehouse(warehouse);
+			wareHouse.setTotalCapacity(storage.getCapacityInWeight() * noOfStorageUnits + wareHouse.getTotalCapacity());
 
-				noOfStorageUnits1--;
-			}
-			storageRepo.saveAll(storages);
-			warehouseRepo.save(warehouse);
+			storages.add(storage);
+			count++;
+			noOfStorageUnits --;
+		}
 
-			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(new SimpleStructure<String>()
-							.setStatus(HttpStatus.CREATED.value())
-							.setMessage("Storage created"));
-		}).orElseThrow(() -> new WarehouseNotFoundByIdException("invalid warehouseId: "+warehouseId+" not prsenet"));
+		storageRepo.saveAll(storages);
+		warehouseRepo.save(wareHouse);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleStructure<String>()
+				.setStatus(HttpStatus.CREATED.value())
+				.setMessage(""+count + " Storages created"));
 	}
+
 
 
 	@Override
 	public ResponseEntity<ResponseStructure<StorageResponse>> updateStorage(StorageRequest storageRequest,
 			int storageId) {
 		return storageRepo.findById(storageId).map(existingStorage -> {
-			
-			existingStorage = 	storageMapper.mapToStorage(storageRequest, existingStorage);
-				existingStorage = storageRepo.save(existingStorage);
-				
-				storageRepo.save(existingStorage);
 
-				return ResponseEntity.status(HttpStatus.CREATED)
-						.body(new ResponseStructure<StorageResponse>()
-								.setStatus(HttpStatus.CREATED.value())
-								.setMessage("Storage updates")
-								.setData(storageMapper.mapToStorageResponse(existingStorage)));
-				
-			}).orElseThrow(() -> new StorageNotFoundByIdException("Storage not found"));
+			existingStorage = 	storageMapper.mapToStorage(storageRequest, existingStorage);
+			existingStorage = storageRepo.save(existingStorage);
+
+			storageRepo.save(existingStorage);
+
+			return ResponseEntity.status(HttpStatus.CREATED)
+					.body(new ResponseStructure<StorageResponse>()
+							.setStatus(HttpStatus.CREATED.value())
+							.setMessage("Storage updates")
+							.setData(storageMapper.mapToStorageResponse(existingStorage)));
+
+		}).orElseThrow(() -> new StorageNotFoundByIdException("Storage not found"));
+
 	}
 }
-
-
 
 
 
