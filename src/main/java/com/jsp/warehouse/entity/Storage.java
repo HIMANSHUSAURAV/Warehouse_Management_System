@@ -2,8 +2,7 @@ package com.jsp.warehouse.entity;
 
 import java.util.List;
 
-import com.jsp.warehouse.enums.AdminType;
-import com.jsp.warehouse.enums.Privilege;
+import com.jsp.warehouse.enums.MaterialTypes;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,8 +10,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,18 +19,30 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Admin {
+@NoArgsConstructor
+public class Storage {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int adminId;
-	private String adminName;
-	private String adminEmail;
-	private String password;
+	private int storageId;
+	private String blockName;
+	private String section;
+	private double lengthInMeters;
+	private double breadthInMeters;
+	private double heightInMeters;
+	private double capacityInWeight;
 	
 	@Enumerated(EnumType.STRING)
-	private AdminType adminType;
+	List<MaterialTypes> materialTypes;
+	
+	private double maxAdditionalWeight;
+	private double availableArea;
+
+	@ManyToOne
+	private Warehouse wareHouse;
 	
 }
+
+
+

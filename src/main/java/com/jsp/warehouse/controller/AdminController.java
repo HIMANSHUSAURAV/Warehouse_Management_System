@@ -25,45 +25,45 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/v1")
 public class AdminController {
+	
 	@Autowired
 	private AdminService adminService;
-	
-	@PostMapping("/register")
+
+	@PostMapping("/register") //SuperAdmin
 	public ResponseEntity<ResponseStructure<AdminResponse>> saveAdmin(@RequestBody  @Valid AdminRequest adminRequest){
 		return adminService.saveAdmin(adminRequest);
 	}
-	
+
 	@PreAuthorize("hasAuthority('CREATE_ADMIN')")
 	@PostMapping("/warehouses/{warehouseId}/admins")
 	public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@RequestBody @Valid AdminRequest adminRequest, @PathVariable int warehouseId){
 		return adminService.createAdmin(adminRequest, warehouseId);
 	}
-	
-	 @PutMapping("/admins")
-	    public ResponseEntity<ResponseStructure<AdminResponse>> updateAdmin(@RequestBody @Valid AdminRequest adminRequest, int adminId) {
-		 return adminService.updateAdmin(adminRequest, adminId);
-	 }
-	 
-	 @PreAuthorize("hasAuthority('CREATE_ADMIN')")
-	 @PutMapping("/admins/{adminId}")
-	    public ResponseEntity<ResponseStructure<AdminResponse>> updateSuperByAdmin(@RequestBody @Valid AdminRequest adminRequest, @PathVariable int adminId) {
-		 return adminService.updateSuperByAdmin(adminRequest, adminId);
-	 }
-	 
-	@GetMapping("/admins/{adminId}")
-	public ResponseEntity<ResponseStructure<AdminResponse>> findAdminById( @PathVariable int adminById){
-		 return adminService.findAdminById( adminById);
+
+	@PutMapping("/admins")
+	public ResponseEntity<ResponseStructure<AdminResponse>> updateAdmin(@RequestBody @Valid AdminRequest adminRequest, int adminId) {
+		return adminService.updateAdmin(adminRequest, adminId);
 	}
-	
-	 
-		@GetMapping("/admins")
-		public ResponseEntity<ResponseStructure<List<AdminResponse>>> findAllAdmins(){
-			
-			 return adminService.findAllAdmins();
-		}
+
+	@PreAuthorize("hasAuthority('CREATE_ADMIN')")
+	@PutMapping("/admins/{adminId}")
+	public ResponseEntity<ResponseStructure<AdminResponse>> updateSuperByAdmin
+	(@RequestBody @Valid AdminRequest adminRequest, @PathVariable int adminId) {
 		
-		
+		return adminService.updateSuperByAdmin(adminRequest, adminId);
+	}
+
+	@GetMapping("/admins/{adminId}")
+	public ResponseEntity<ResponseStructure<AdminResponse>> findAdmin( @PathVariable int adminById){
+		return adminService.findAdmin( adminById);
+	}
+
 	
+	@GetMapping("/admins")
+	public ResponseEntity<ResponseStructure<List<AdminResponse>>> findAllAdmins(){
+
+		return adminService.findAllAdmins();
+	}		
 }
 
 

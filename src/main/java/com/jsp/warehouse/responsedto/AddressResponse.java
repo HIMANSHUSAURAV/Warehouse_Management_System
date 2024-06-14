@@ -11,11 +11,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class WarehouseResponse {
+public class AddressResponse {
 
-	private int warehouseId;
-	private String warehousename;
-	private double totalCapacity;
-	
-	private AddressResponse addressResponse;
+	private int addressId;
+	private String addressLine;
+	private String city;
+	private String state;
+	private String country;
+	private int pincode;
+	private String  longitutde; 
+	private String latitude;
 }

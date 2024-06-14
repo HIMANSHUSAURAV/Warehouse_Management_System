@@ -13,7 +13,6 @@ public class AdminMapper {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	
 	public Admin mapToAdmin(AdminRequest adminRequest,Admin admin) {
 		return Admin.builder()
 				.adminName(adminRequest.getAdminName())

@@ -1,5 +1,7 @@
 package com.jsp.warehouse.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,9 +42,36 @@ public class WarehouseController {
 		public ResponseEntity<ResponseStructure<WarehouseResponse>> updateWarehouse(@RequestBody WarehouseRequest warehouseRequest, @PathVariable int warehouseId) {
 			return warehouseService.updateWarehouse(warehouseRequest, warehouseId);
 		}
+	    
 	    @GetMapping("/warehouses/{warehouseId}")
 		public ResponseEntity<ResponseStructure<WarehouseResponse>> findWarehouse(@PathVariable int warehouseId){
 			
-			 return warehouseService.findWarehouse( warehouseId);
+			 return warehouseService.findWarehouse(warehouseId);
 		}
+	    
+	    @PreAuthorize("hasAuthority('UPDATE_WAREHOUSE')")
+	    @GetMapping("/warehouses")
+	  		public ResponseEntity<ResponseStructure<List<WarehouseResponse>>> findWarehouses(){
+	  			
+	  			 return warehouseService.findWarehouses();
+	  		}
+	   
+	    @GetMapping("/cities/{city}/warehouses")
+	    public ResponseEntity<ResponseStructure<List<WarehouseResponse>>> findWarehousesByCity(@PathVariable String city){
+	    	return warehouseService.findWarehousesByCity(city);
+	    }
+	    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
