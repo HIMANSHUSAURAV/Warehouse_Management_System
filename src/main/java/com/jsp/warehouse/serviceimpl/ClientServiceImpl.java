@@ -32,23 +32,23 @@ public class ClientServiceImpl implements ClientService {
 		String apiKey = UUID.randomUUID().toString();
 
 		Client client = clientRepository.save(clientMapper.mapToClientRequest(clientRequest, new Client()));
-          client.setApiKey(apiKey);
-          clientRepository.save(client);
-          
-          return ResponseEntity.status(HttpStatus.CREATED)
-        		  .body(new ResponseStructure<ClientResponse>()
-        				  .setStatus(HttpStatus.CREATED.value())
-        				  .setMessage("ApiKey  created")
-        				  .setData(clientMapper.mapToClientResponse(client)));
+		client.setApiKey(apiKey);
+		clientRepository.save(client);
+
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(new ResponseStructure<ClientResponse>()
+						.setStatus(HttpStatus.CREATED.value())
+						.setMessage("ApiKey created")
+						.setData(clientMapper.mapToClientResponse(client)));
 	}
 
 
 	@Override
 	public ResponseEntity<ResponseStructure<ClientResponse>> updateClient(int clientId, ClientRequest clientRequest) {
-		
+
 		return clientRepository.findById(clientId).map(exClient -> {
 			exClient = clientRepository.save(clientMapper.mapToClientRequest(clientRequest, exClient));
-			
+
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new ResponseStructure<ClientResponse>()
 							.setStatus(HttpStatus.OK.value())
@@ -56,5 +56,4 @@ public class ClientServiceImpl implements ClientService {
 							.setData(clientMapper.mapToClientResponse(exClient)));
 		}).orElseThrow(() -> new  ClientNotFoundByIdException ("Client not found"));
 	}
-
 }
