@@ -6,10 +6,4 @@ import com.jsp.warehouse.entity.StorageType;
 
 public interface StorageTypeRepo extends JpaRepository<StorageType, Integer> {
 	
-	 boolean existsByLengthInMetersAndBreadthInMetersAndHeightInMetersAndCapacityWeightInKg(
-	            double lengthInMeters,
-	            double breadthInMeters,
-	            double heightInMeters,
-	            double capacityWeightInKg);
-
 }
