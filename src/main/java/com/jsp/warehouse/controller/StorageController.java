@@ -1,5 +1,7 @@
 package com.jsp.warehouse.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jsp.warehouse.entity.Storage;
 import com.jsp.warehouse.requestdto.StorageRequest;
+import com.jsp.warehouse.responsedto.ClientResponse;
 import com.jsp.warehouse.responsedto.StorageResponse;
 import com.jsp.warehouse.service.StorageService;
 import com.jsp.warehouse.utility.ResponseStructure;
@@ -26,8 +30,6 @@ public class StorageController {
 
 	@Autowired
 	private StorageService storageService;
-	
-	
 
 	@PreAuthorize("hasAuthority('CREATE_STORAGE')")
 	@PostMapping("warehouses/{wareHouseId}/storages")
@@ -35,13 +37,21 @@ public class StorageController {
 			@PathVariable int wareHouseId, @RequestParam("no_of_storage_units") int noOfStorageUnits ){
 		return storageService.createStorage(storageRequest , wareHouseId , noOfStorageUnits);
 	}
-	
-	 @PutMapping("/storages/{storageId}")
-	 @PreAuthorize("hasAuthority('UPDATE_STORAGE')")
-	    public ResponseEntity<ResponseStructure<StorageResponse>> updateStorage(
-	             @RequestBody StorageRequest storageRequest, @PathVariable int storageId) {
-	        return storageService.updateStorage(storageRequest, storageId);
-	    }
-}
 
+	@PutMapping("/storages/{storageId}")
+	@PreAuthorize("hasAuthority('UPDATE_STORAGE')")
+	public ResponseEntity<ResponseStructure<StorageResponse>> updateStorage(
+			@RequestBody StorageRequest storageRequest, @PathVariable int storageId) {
+		return storageService.updateStorage(storageRequest, storageId);
+	}
+
+//	@GetMapping("/findallstorages")
+//	public Storage findFirstStorage() {
+//	    Optional<Storage> optionalStorage = storageService.findFirstByCapacityInWeightAndLengthInMetersAndBreadthInMetersAndHeightInMeters(100, 10, 20, 30);
+//	    
+//	    // Check if optionalStorage has a value; otherwise, throw a RuntimeException
+//	    return optionalStorage.orElseThrow(() -> new RuntimeException("Storage not found"));
+//	}
+
+}  
 

@@ -6,7 +6,6 @@ import com.jsp.warehouse.entity.Storage;
 import com.jsp.warehouse.requestdto.StorageRequest;
 import com.jsp.warehouse.responsedto.StorageResponse;
 
-
 @Component
 public class StorageMapper {
 

@@ -42,6 +42,8 @@ public class Storage {
 	@ManyToOne
 	private Warehouse wareHouse;
 	
+	@ManyToOne
+	private StorageType storageType;
 }
 
 
