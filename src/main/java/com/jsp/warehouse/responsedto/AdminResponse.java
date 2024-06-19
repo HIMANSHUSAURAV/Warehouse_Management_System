@@ -17,9 +17,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class AdminResponse {
+	
 	private int adminId;
 	private String adminName;
 	private String adminEmail;
 	private AdminType adminType;
+	
 	private List<Privilege> privileges;
 }

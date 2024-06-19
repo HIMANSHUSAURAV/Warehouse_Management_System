@@ -30,6 +30,8 @@ public class Admin {
 	private String adminName;
 	private String adminEmail;
 	private String password;
+	
 	@Enumerated(EnumType.STRING)
 	private AdminType adminType;
+	
 }

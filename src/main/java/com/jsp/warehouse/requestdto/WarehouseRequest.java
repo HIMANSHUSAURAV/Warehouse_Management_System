@@ -7,5 +7,7 @@ import lombok.Setter;
 @Setter
 public class WarehouseRequest {
 
-	private String name;
+	private String warehousename;
+
+
 }
