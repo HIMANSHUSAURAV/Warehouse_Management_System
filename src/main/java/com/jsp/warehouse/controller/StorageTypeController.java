@@ -19,7 +19,7 @@ import com.jsp.warehouse.utility.ResponseStructure;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/v1")
 public class StorageTypeController {
 
 	
@@ -43,8 +43,7 @@ public class StorageTypeController {
 	  public ResponseEntity<ResponseStructure <List<StorageTypeResponse>>> findAllStorageTypes() {
 	      return storageTypeService.findStorageTypes();
 	  }
-	  
-	 
+	   
 }
 
 

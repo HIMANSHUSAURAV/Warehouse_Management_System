@@ -1,4 +1,4 @@
-package com.jsp.warehouse.serviceimpl;
+ package com.jsp.warehouse.serviceimpl;
 
 import java.util.List;
 

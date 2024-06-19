@@ -1,4 +1,4 @@
-package filter;
+package com.jsp.warehouse.filter;
 
 import java.io.IOException;
 
@@ -18,8 +18,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class ApiKeyFilter extends OncePerRequestFilter {
+public class ApiKeyFilter extends OncePerRequestFilter{
 
+	
 	@Autowired
 	private ClientRepo clientRepo;
 
@@ -51,8 +52,3 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
 	}
 }
-
-
-
-
-

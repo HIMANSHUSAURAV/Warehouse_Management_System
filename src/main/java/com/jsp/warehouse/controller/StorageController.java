@@ -43,6 +43,8 @@ public class StorageController {
 			@RequestBody StorageRequest storageRequest, @PathVariable int storageId) {
 		return storageService.updateStorage(storageRequest, storageId);
 	}
+	
+	
 
 //	@GetMapping("/findallstorages")
 //	public Storage findFirstStorage() {

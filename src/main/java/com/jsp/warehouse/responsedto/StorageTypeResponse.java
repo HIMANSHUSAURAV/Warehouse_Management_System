@@ -1,9 +1,5 @@
 package com.jsp.warehouse.responsedto;
 
-import java.util.List;
-
-import com.jsp.warehouse.enums.MaterialTypes;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

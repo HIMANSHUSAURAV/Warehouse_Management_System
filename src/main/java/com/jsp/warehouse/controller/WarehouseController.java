@@ -30,37 +30,47 @@ public class WarehouseController {
 
 	@Autowired
 	private WarehouseService warehouseService;
-	
-	 @PreAuthorize("hasAuthority('CREATE_WAREHOUSE')")
+
+	@PreAuthorize("hasAuthority('CREATE_WAREHOUSE')")
 	@PostMapping("/warehouses")
 	public ResponseEntity<ResponseStructure<WarehouseResponse>> createWarehouse(@RequestBody WarehouseRequest warehouseRequest) {
 		return warehouseService.createWarehouse(warehouseRequest);
 	}
-	 
-	    @PreAuthorize("hasAuthority('UPDATE_WAREHOUSE')")
-		@PutMapping("/warehouses/{warehouseId}")
-		public ResponseEntity<ResponseStructure<WarehouseResponse>> updateWarehouse(@RequestBody WarehouseRequest warehouseRequest, @PathVariable int warehouseId) {
-			return warehouseService.updateWarehouse(warehouseRequest, warehouseId);
-		}
-	    
-	    @GetMapping("/warehouses/{warehouseId}")
-		public ResponseEntity<ResponseStructure<WarehouseResponse>> findWarehouse(@PathVariable int warehouseId){
-			
-			 return warehouseService.findWarehouse(warehouseId);
-		}
-	    
-	    @PreAuthorize("hasAuthority('UPDATE_WAREHOUSE')")
-	    @GetMapping("/warehouses")
-	  		public ResponseEntity<ResponseStructure<List<WarehouseResponse>>> findWarehouses(){
-	  			
-	  			 return warehouseService.findWarehouses();
-	  		}
-	   
-	    @GetMapping("/cities/{city}/warehouses")
-	    public ResponseEntity<ResponseStructure<List<WarehouseResponse>>> findWarehousesByCity(@PathVariable String city){
-	    	return warehouseService.findWarehousesByCity(city);
-	    }
-	    
+
+	@PreAuthorize("hasAuthority('UPDATE_WAREHOUSE')")
+	@PutMapping("/warehouses/{warehouseId}")
+	public ResponseEntity<ResponseStructure<WarehouseResponse>> updateWarehouse(@RequestBody WarehouseRequest warehouseRequest, @PathVariable int warehouseId) {
+		return warehouseService.updateWarehouse(warehouseRequest, warehouseId);
+	}
+
+	@GetMapping("/warehouses/{warehouseId}")
+	public ResponseEntity<ResponseStructure<WarehouseResponse>> findWarehouse(@PathVariable int warehouseId){
+
+		return warehouseService.findWarehouse(warehouseId);
+	}
+
+	@PreAuthorize("hasAuthority('UPDATE_WAREHOUSE')")
+	@GetMapping("/warehouses")
+	public ResponseEntity<ResponseStructure<List<WarehouseResponse>>> findWarehouses(){
+
+		return warehouseService.findWarehouses();
+	}
+
+//	@GetMapping("/cities/{city}/warehouses")
+//	public ResponseEntity<ResponseStructure<List<WarehouseResponse>>> findWarehousesByCity(@PathVariable String city){
+//		return warehouseService.findWarehousesByCity(city);
+//	}
+
+	@GetMapping("cities/{city}/warehouses")
+	public ResponseEntity<ResponseStructure<List<WarehouseResponse>>> findWarehousesByCityForAdmin(@PathVariable String city) {
+		return warehouseService.findWarehousesByCity(city);
+	}
+
+	@GetMapping("client/cities/{city}/warehouses")
+	public ResponseEntity<ResponseStructure<List<WarehouseResponse>>> findWarehousesByCityForClient(@PathVariable String city){
+		return warehouseService.findWarehousesByCity(city);
+	}   
+
 }
 
 

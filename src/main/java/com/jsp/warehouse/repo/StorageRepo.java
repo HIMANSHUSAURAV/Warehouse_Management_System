@@ -7,6 +7,5 @@ import com.jsp.warehouse.entity.Storage;
 public interface StorageRepo extends JpaRepository<Storage, Integer>{
 
 	
-	Object findFirstByCapacityInWeightAndLengthInMetersAndBreadthInMetersAndHeightInMeters(int i, int j, int k, int l);
 
 }

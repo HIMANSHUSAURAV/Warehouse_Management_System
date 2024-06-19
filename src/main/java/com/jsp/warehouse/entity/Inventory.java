@@ -1,12 +1,11 @@
 package com.jsp.warehouse.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.jsp.warehouse.enums.MaterialTypes;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,33 +21,27 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Storage {
+public class Inventory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int storageId;
-	private String blockName;
-	private String section;
+	private int productId;
+	private String productTitle;
 	private double lengthInMeters;
 	private double breadthInMeters;
 	private double heightInMeters;
-	private double capacityInWeight;
+	private double weightInKg;
+	private double quantity;
+
+	private List<MaterialTypes> materialTypes;
+	private LocalDate restockedAt;
 	private int sellerId;
-	
-	@Enumerated(EnumType.STRING)
-	List<MaterialTypes> materialTypes;
-	private double maxAdditionalWeight;
-	private double availableArea;
 
-	@ManyToOne
-	private Warehouse wareHouse;
+	@ManyToMany(mappedBy = "inventories")
+	private List<Storage> storages;
 	
 	@ManyToOne
-	private StorageType storageType;
-	
-	  @ManyToMany
-	private List<Inventory> inventories;
+	private Client client;
 }
-
 
 

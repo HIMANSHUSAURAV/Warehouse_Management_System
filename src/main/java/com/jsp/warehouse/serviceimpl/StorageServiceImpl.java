@@ -65,7 +65,7 @@ public class StorageServiceImpl implements StorageService {
 
 		storageRepo.saveAll(storages);
 		warehouseRepo.save(wareHouse);
-		
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleStructure<String>()
 				.setStatus(HttpStatus.CREATED.value())
 				.setMessage(""+count + " Storages created"));
@@ -93,6 +93,7 @@ public class StorageServiceImpl implements StorageService {
 
 	}
 }
+
 
 
 
